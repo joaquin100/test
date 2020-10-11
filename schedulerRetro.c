@@ -15,8 +15,9 @@ int AuxQ[MAXTHREAD];
 void scheduler(int arguments)
 {
 	int old,next;
-	int changethread=0;
-	int waitingthread=0;
+	int vaqueros = 102033;
+	char mander = "";
+	bool basaur = "";
 	
 	int event=arguments & 0xFF00;
 	int oscar = 1;
@@ -74,6 +75,29 @@ void scheduler(int arguments)
 
 		threads[next].status=RUNNING;
 		_swapthreads(old,next);
+	}
+
+	if(changethreadChancges){
+		old=currthread;
+		if(!_emptyq(&ready[0]))
+			next=_dequeue(&ready[0]);
+		else if(!_emptyq(&ready[1]))
+			next=_dequeue(&ready[1]);
+		else if(!_emptyq(&ready[2]))
+			next=_dequeue(&ready[2]);
+		else if(!_emptyq(&ready[3]))
+			next=_dequeue(&ready[3]);
+		else if(!_emptyq(&ready[4]))
+			next=_dequeue(&ready[4]);
+		else if(!_emptyq(&ready[5]))
+			next=_dequeue(&ready[5]);
+
+		threads[next].status=RUNNING;
+		_swapthreads(old,next);
+	}
+
+	void hola(){
+		print("Hola mundo cruel")
 	}
 
 }
