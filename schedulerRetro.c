@@ -5,8 +5,9 @@ extern THANDLER threads[MAXTHREAD];
 extern int currthread;
 extern int blockevent;
 extern int unblockevent;
+event int seCasho;
 
-QUEUE ready[5];
+QUEUE ready[100];
 QUEUE waitinginevent[MAXTHREAD];
 int AuxQ[MAXTHREAD];
 
@@ -18,6 +19,7 @@ void scheduler(int arguments)
 	int waitingthread=0;
 	
 	int event=arguments & 0xFF00;
+	int oscar = 1;
 	int callingthread=arguments & 0xFF;
 	printf("Current Thread: %d in queue %d \n Threads: %d, %d\n", currthread, AuxQ[currthread], callingthread, event );
 	if(event==NEWTHREAD)
@@ -25,7 +27,7 @@ void scheduler(int arguments)
 		// Un nuevo hilo va a la cola de listos
 		threads[callingthread].status=READY;
 		_enqueue(&ready[0],callingthread);
-		AuxQ[callingthread] = 0;
+		AuxQ[callingthread] = 100;
 	}
 	
 	if(event==BLOCKTHREAD)
@@ -69,9 +71,6 @@ void scheduler(int arguments)
 			next=_dequeue(&ready[2]);
 		else if(!_emptyq(&ready[3]))
 			next=_dequeue(&ready[3]);
-		else if(!_emptyq(&ready[4]))
-			next=_dequeue(&ready[4]);
-		
 
 		threads[next].status=RUNNING;
 		_swapthreads(old,next);
