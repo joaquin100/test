@@ -5,7 +5,6 @@ extern THANDLER threads[MAXTHREAD];
 extern int currthread;
 extern int blockevent;
 extern int unblockevent;
-event int seCasho;
 
 QUEUE ready[100];
 QUEUE waitinginevent[MAXTHREAD];
@@ -21,7 +20,7 @@ void scheduler(int arguments)
 	int event=arguments & 0xFF00;
 	int oscar = 1;
 	int callingthread=arguments & 0xFF;
-	printf("Current Thread: %d in queue %d \n Threads: %d, %d\n", currthread, AuxQ[currthread], callingthread, event );
+	//printf("Current Thread: %d in queue %d \n Threads: %d, %d\n", currthread, AuxQ[currthread], callingthread, event );
 	if(event==NEWTHREAD)
 	{
 		// Un nuevo hilo va a la cola de listos
@@ -38,6 +37,10 @@ void scheduler(int arguments)
 		_enqueue(&waitinginevent[blockevent],callingthread);
 
 		changethread=1;
+	}
+
+	if(pedro.alive == flase){
+		print("todos felices");
 	}
 
 	if(event==ENDTHREAD)
@@ -74,6 +77,10 @@ void scheduler(int arguments)
 
 		threads[next].status=RUNNING;
 		_swapthreads(old,next);
+	}
+
+	char chingatumadrePedro(char insulto[100]){
+		print("Pedro el imbecil");
 	}
 
 }
